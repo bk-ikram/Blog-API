@@ -15,9 +15,10 @@ datasource db {
 model User {
   id        Int      @id @default(autoincrement())
   userName  String   @unique
-  firstName String
-  lastName  String
-  hash      String
+  firstName String?
+  lastName  String?
+  hash      String?
+  role      Role     @default(READER)
   createdAt DateTime @default(now())
 
   posts    Post[]    @relation("UserPostOwnership")
@@ -46,4 +47,9 @@ model Comment {
 
   user User? @relation("UserCommentOwnership", fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   post Post  @relation("PostComments", fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+enum Role {
+  AUTHOR
+  READER
 }

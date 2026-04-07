@@ -30,6 +30,23 @@ export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
 export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const Role: {
+  AUTHOR: 'AUTHOR',
+  READER: 'READER'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+}
+
+export type Role = $Enums.Role
+
+export const Role: typeof $Enums.Role
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -1144,6 +1161,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     hash: string | null
+    role: $Enums.Role | null
     createdAt: Date | null
   }
 
@@ -1153,6 +1171,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     hash: string | null
+    role: $Enums.Role | null
     createdAt: Date | null
   }
 
@@ -1162,6 +1181,7 @@ export namespace Prisma {
     firstName: number
     lastName: number
     hash: number
+    role: number
     createdAt: number
     _all: number
   }
@@ -1181,6 +1201,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     hash?: true
+    role?: true
     createdAt?: true
   }
 
@@ -1190,6 +1211,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     hash?: true
+    role?: true
     createdAt?: true
   }
 
@@ -1199,6 +1221,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     hash?: true
+    role?: true
     createdAt?: true
     _all?: true
   }
@@ -1292,9 +1315,10 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: number
     userName: string
-    firstName: string
-    lastName: string
-    hash: string
+    firstName: string | null
+    lastName: string | null
+    hash: string | null
+    role: $Enums.Role
     createdAt: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -1323,6 +1347,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     hash?: boolean
+    role?: boolean
     createdAt?: boolean
     posts?: boolean | User$postsArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
@@ -1335,6 +1360,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     hash?: boolean
+    role?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1344,6 +1370,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     hash?: boolean
+    role?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1353,10 +1380,11 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     hash?: boolean
+    role?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userName" | "firstName" | "lastName" | "hash" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userName" | "firstName" | "lastName" | "hash" | "role" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | User$postsArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
@@ -1374,9 +1402,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userName: string
-      firstName: string
-      lastName: string
-      hash: string
+      firstName: string | null
+      lastName: string | null
+      hash: string | null
+      role: $Enums.Role
       createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1808,6 +1837,7 @@ export namespace Prisma {
     readonly firstName: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
     readonly hash: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'Role'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
@@ -4577,6 +4607,7 @@ export namespace Prisma {
     firstName: 'firstName',
     lastName: 'lastName',
     hash: 'hash',
+    role: 'role',
     createdAt: 'createdAt'
   };
 
@@ -4665,6 +4696,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Role'
+   */
+  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+  /**
+   * Reference to a field of type 'Role[]'
+   */
+  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -4708,9 +4753,10 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
     userName?: StringFilter<"User"> | string
-    firstName?: StringFilter<"User"> | string
-    lastName?: StringFilter<"User"> | string
-    hash?: StringFilter<"User"> | string
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
+    hash?: StringNullableFilter<"User"> | string | null
+    role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
     comments?: CommentListRelationFilter
@@ -4719,9 +4765,10 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     userName?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    hash?: SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    hash?: SortOrderInput | SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     posts?: PostOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
@@ -4733,9 +4780,10 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    firstName?: StringFilter<"User"> | string
-    lastName?: StringFilter<"User"> | string
-    hash?: StringFilter<"User"> | string
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
+    hash?: StringNullableFilter<"User"> | string | null
+    role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
     comments?: CommentListRelationFilter
@@ -4744,9 +4792,10 @@ export namespace Prisma {
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     userName?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    hash?: SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    hash?: SortOrderInput | SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -4761,9 +4810,10 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
     userName?: StringWithAggregatesFilter<"User"> | string
-    firstName?: StringWithAggregatesFilter<"User"> | string
-    lastName?: StringWithAggregatesFilter<"User"> | string
-    hash?: StringWithAggregatesFilter<"User"> | string
+    firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    hash?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
@@ -4899,9 +4949,10 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     userName: string
-    firstName: string
-    lastName: string
-    hash: string
+    firstName?: string | null
+    lastName?: string | null
+    hash?: string | null
+    role?: $Enums.Role
     createdAt?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
@@ -4910,9 +4961,10 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     id?: number
     userName: string
-    firstName: string
-    lastName: string
-    hash: string
+    firstName?: string | null
+    lastName?: string | null
+    hash?: string | null
+    role?: $Enums.Role
     createdAt?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
@@ -4920,9 +4972,10 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     userName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
@@ -4931,9 +4984,10 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -4942,26 +4996,29 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: number
     userName: string
-    firstName: string
-    lastName: string
-    hash: string
+    firstName?: string | null
+    lastName?: string | null
+    hash?: string | null
+    role?: $Enums.Role
     createdAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
     userName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5112,6 +5169,28 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5135,6 +5214,11 @@ export namespace Prisma {
     none?: CommentWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type PostOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -5149,6 +5233,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     hash?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5162,6 +5247,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     hash?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5171,6 +5257,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     hash?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5210,6 +5297,34 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5305,11 +5420,6 @@ export namespace Prisma {
     isNot?: PostWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type CommentCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -5392,6 +5502,14 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -5585,6 +5703,27 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5640,6 +5779,44 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -5665,17 +5842,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5815,9 +5981,10 @@ export namespace Prisma {
 
   export type UserCreateWithoutPostsInput = {
     userName: string
-    firstName: string
-    lastName: string
-    hash: string
+    firstName?: string | null
+    lastName?: string | null
+    hash?: string | null
+    role?: $Enums.Role
     createdAt?: Date | string
     comments?: CommentCreateNestedManyWithoutUserInput
   }
@@ -5825,9 +5992,10 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutPostsInput = {
     id?: number
     userName: string
-    firstName: string
-    lastName: string
-    hash: string
+    firstName?: string | null
+    lastName?: string | null
+    hash?: string | null
+    role?: $Enums.Role
     createdAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
@@ -5873,9 +6041,10 @@ export namespace Prisma {
 
   export type UserUpdateWithoutPostsInput = {
     userName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUpdateManyWithoutUserNestedInput
   }
@@ -5883,9 +6052,10 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutPostsInput = {
     id?: IntFieldUpdateOperationsInput | number
     userName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -5908,9 +6078,10 @@ export namespace Prisma {
 
   export type UserCreateWithoutCommentsInput = {
     userName: string
-    firstName: string
-    lastName: string
-    hash: string
+    firstName?: string | null
+    lastName?: string | null
+    hash?: string | null
+    role?: $Enums.Role
     createdAt?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
   }
@@ -5918,9 +6089,10 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutCommentsInput = {
     id?: number
     userName: string
-    firstName: string
-    lastName: string
-    hash: string
+    firstName?: string | null
+    lastName?: string | null
+    hash?: string | null
+    role?: $Enums.Role
     createdAt?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
   }
@@ -5967,9 +6139,10 @@ export namespace Prisma {
 
   export type UserUpdateWithoutCommentsInput = {
     userName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
   }
@@ -5977,9 +6150,10 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutCommentsInput = {
     id?: IntFieldUpdateOperationsInput | number
     userName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
   }

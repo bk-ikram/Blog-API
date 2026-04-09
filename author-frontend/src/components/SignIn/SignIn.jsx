@@ -6,8 +6,8 @@ export default function SignIn(){
                 <label htmlFor="username"></label>
                 <input name="username" id="username" type="text" />
                 <label htmlFor="password"></label>
-                <input name="password" id="password" type="password" /
-            ></p>
+                <input name="password" id="password" type="password" />
+            </p>
         </form>
     ) ;
 }

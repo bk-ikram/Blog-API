@@ -32,7 +32,7 @@ model Post {
   userId      Int
   title       String  
   content     String
-  published   Boolean
+  published   Boolean 
   createdAt   DateTime  @default(now())
   publishedAt DateTime
   

@@ -1,19 +1,30 @@
 import api from "../../api/requests";
+import getPosts from "../../api/requests";
+import { useLoaderData } from "react-router-dom";
 
-function Home(user, posts){
+export async function loader({request}){
+  const posts = await getPosts();
+  return posts;
+}
+
+
+export function Home(user){
+  const posts = useLoaderData();
     return (
     <main >
       <div >
         <h3>
           Welcome to your blog!
         </h3>
-        <p>{api.testFunc()}</p>
       </div>
-      {/*posts.map(p => 
-        <p>{p.title}</p>
-      )*/}
+      {posts && posts.map(p => 
+        <div key={p.id}>
+          <p>{p.title}</p>
+          <p>{p.content}</p>
+        </div>
+        
+      )}
     </main>
     )
 }
 
-export default Home;

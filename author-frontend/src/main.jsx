@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import './index.css'
 import Root from "./components/Root/Root.jsx"
-import Home from "./components/Home/Home.jsx"
+import { Home, loader as postLoader} from "./components/Home/Home.jsx"
 
 
 const router = createBrowserRouter([
@@ -16,7 +16,9 @@ const router = createBrowserRouter([
     //errorElement: <ErrorPage />,
     children: [
       {
-        index: true, element: <Home />
+        index: true,
+        element: <Home />,
+        loader: postLoader,
       }/*,
       {
         path: "signup",

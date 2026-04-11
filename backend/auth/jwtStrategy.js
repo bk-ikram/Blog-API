@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import passport from 'passport';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,7 +10,8 @@ dotenv.config({
   path: path.resolve(__dirname, '../../.env'),
 });
 
-import { ExtractJwt, JwtStrategy } from 'passport-jwt';
+import { ExtractJwt
+    , Strategy as JwtStrategy } from 'passport-jwt';
 
 
 var opts = {}

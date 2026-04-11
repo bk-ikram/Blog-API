@@ -1,8 +1,8 @@
-const { Router } = require('express');
-const appRouter = Router();
-const appController = require("../controllers/appController");
 
-const { isAuth } = require('../middleware/authMiddleware');
+import { Router } from 'express';
+const appRouter = Router();
+import  { postsGet } from "../controllers/appController.js";
+//import {isAuth } from '../middleware/authMiddleware';
 
 //universal
 appRouter.use((req, res, next) => {
@@ -10,5 +10,7 @@ appRouter.use((req, res, next) => {
     next();
 })
 
-//login
-appRouter.post()
+//posts
+appRouter.get("/api/posts", postsGet);
+
+export default appRouter;

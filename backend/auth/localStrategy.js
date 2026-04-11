@@ -1,10 +1,10 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
-const { validPassword } = require('../lib/passwordUtils');
-const { 
-  getUserById,
+import passport from 'passport';
+import LocalStrategy from 'passport-local'
+import { validPassword } from '../lib/passwordUtils.js';
+import { 
+  //getUserById,
   getUserByUsername
- } = require('../repositories/queries');
+ } from '../repositories/queries.js';
 
 async function verifyCallback(username, password, done) {
   try {

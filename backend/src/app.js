@@ -1,11 +1,16 @@
-const express = require("express");
-const path = require("node:path");
-const passport = require("passport");
-const { prisma } = require('./lib/prisma');
-const appRouter = require("./routes/appRouter");
-const moment = require("moment");
+import express from "express";
+import { appRouter } from "./routes/appRouter";
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({
+  path: path.resolve(__dirname, '../../.env'),
+});
 
 
 /** -------------   GENERAL SETUP   -------------  **/
@@ -14,9 +19,6 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-/** -------------   Make libraries available in ejs files   -------------  **/
-app.locals.moment = moment;
 
 
 /** ----------   PASSPORT AUTHENTICATION   ----------- **/

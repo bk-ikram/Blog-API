@@ -39,11 +39,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.6.0
+ * Prisma Client JS version: 7.7.0
  * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
  */
 Prisma.prismaVersion = {
-  client: "7.6.0",
+  client: "7.7.0",
   engine: "75cbdc1eb7150937890ad5465d861175c6624711"
 }
 
@@ -150,7 +150,7 @@ exports.Prisma.ModelName = {
  */
 const config = {
   "previewFeatures": [],
-  "clientVersion": "7.6.0",
+  "clientVersion": "7.7.0",
   "engineVersion": "75cbdc1eb7150937890ad5465d861175c6624711",
   "activeProvider": "postgresql",
   "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  userName  String   @unique\n  firstName String?\n  lastName  String?\n  hash      String?\n  role      Role     @default(READER)\n  createdAt DateTime @default(now())\n\n  posts    Post[]    @relation(\"UserPostOwnership\")\n  comments Comment[] @relation(\"UserCommentOwnership\")\n}\n\nmodel Post {\n  id          Int       @id @default(autoincrement())\n  userId      Int\n  title       String\n  content     String\n  published   Boolean   @default(false)\n  createdAt   DateTime  @default(now())\n  publishedAt DateTime?\n\n  user     User      @relation(\"UserPostOwnership\", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  comments Comment[] @relation(\"PostComments\")\n}\n\nmodel Comment {\n  id        Int      @id @default(autoincrement())\n  userId    Int?\n  postId    Int\n  content   String\n  createdAt DateTime @default(now())\n\n  user User? @relation(\"UserCommentOwnership\", fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)\n  post Post  @relation(\"PostComments\", fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)\n}\n\nenum Role {\n  AUTHOR\n  READER\n}\n"

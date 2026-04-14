@@ -28,7 +28,15 @@ async function getUserByUsername(username){
     return user;
 };
 
+async function getUserById(id){
+    const user = prisma.user.findUnique({
+        where: { id: id },
+    })
+    return user;
+};
+
 export { 
     getPosts,
-    getUserByUsername
+    getUserByUsername,
+    getUserById
  };

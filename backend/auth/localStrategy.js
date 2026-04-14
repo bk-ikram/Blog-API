@@ -2,7 +2,6 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local'
 import { validPassword } from '../lib/passwordUtils.js';
 import { 
-  //getUserById,
   getUserByUsername
  } from '../repositories/queries.js';
 

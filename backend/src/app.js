@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 /** ----------   PASSPORT AUTHENTICATION   ----------- **/
 
 import "../auth/jwtStrategy.js";
-//import "../auth/localStrategy.js";
+import "../auth/localStrategy.js";
 
 /** -------------------   ROUTERS   -------------------- **/
 app.use("/", appRouter);

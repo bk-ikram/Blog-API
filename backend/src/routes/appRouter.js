@@ -1,7 +1,10 @@
 
 import { Router } from 'express';
 const appRouter = Router();
-import  { postsGet } from "../controllers/appController.js";
+import  { postsGet
+    ,signInPost
+ } from "../controllers/appController.js";
+import passport from 'passport';
 //import {isAuth } from '../middleware/authMiddleware';
 
 //universal
@@ -12,5 +15,10 @@ appRouter.use((req, res, next) => {
 
 //posts
 appRouter.get("/api/posts", postsGet);
+
+//signin
+appRouter.post("/api/signin",
+                passport.authenticate("local", { session: false }),
+                signInPost);
 
 export default appRouter;

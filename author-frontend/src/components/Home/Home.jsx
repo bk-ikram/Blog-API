@@ -1,5 +1,4 @@
-import api from "../../api/requests";
-import getPosts from "../../api/requests";
+import { getPosts }  from "../../api/requests";
 import { useLoaderData } from "react-router-dom";
 
 export async function loader({request}){

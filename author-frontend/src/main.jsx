@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import './index.css'
 import Root from "./components/Root/Root.jsx"
+import SignIn from "./components/SignIn/SignIn.jsx"
 import { Home, loader as postLoader} from "./components/Home/Home.jsx"
 
 
@@ -19,15 +20,11 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
         loader: postLoader,
-      }/*,
-      {
-        path: "signup",
-        element: <SignUp />,
       },
       {
         path: "signin",
         element: <SignIn />,
-      }*/
+      }
     ]
   }
 

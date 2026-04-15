@@ -6,6 +6,7 @@ import  { postsGet
  } from "../controllers/appController.js";
 import passport from 'passport';
 //import {isAuth } from '../middleware/authMiddleware';
+import { authenticateLocal } from '../../middleware/authMiddleware.js'
 
 //universal
 appRouter.use((req, res, next) => {
@@ -18,7 +19,7 @@ appRouter.get("/api/posts", postsGet);
 
 //signin
 appRouter.post("/api/signin",
-                passport.authenticate("local", { session: false }),
+                authenticateLocal,
                 signInPost);
 
 export default appRouter;

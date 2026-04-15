@@ -24,11 +24,10 @@ async function postLogin(formJson){
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formJson)
         });
-        if(!response.ok)
-            throw new Error(`HTTP error! status: ${response.status}`);
-        console.log(response);
         let data = await response.json();
-        console.log(data);
+        if(!response.ok)
+            //throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(data.message)
         return data;
     }
     catch(err){

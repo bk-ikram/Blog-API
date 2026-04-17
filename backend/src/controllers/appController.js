@@ -1,4 +1,6 @@
-import { getPosts } from "../../repositories/queries.js";
+import { getPosts
+    ,upsertPost
+ } from "../../repositories/queries.js";
 import jwt from "jsonwebtoken";
 import passport from 'passport';
 
@@ -15,7 +17,7 @@ function signInPost(req, res){
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "24h",
     });
 
     return res.json({
@@ -27,7 +29,40 @@ function signInPost(req, res){
     });
 }
 
+
+async function postPost( req, res){
+    try{
+        console.log("postpost controller reached");
+        const {id,
+            title,
+            content,
+            published,
+        } = req.body;
+
+        const userId = req.user.id;
+
+        const post = await upsertPost(
+            Number(id)
+            ,title
+            ,content
+            ,published === "yes"
+            ,Number(userId)
+            ,published === "yes" ? new Date().getTimezoneOffset() : null
+        );
+        console.log("After upsert query ",post);
+        return res.json('done');
+    }
+    catch(err){
+        const msg = "Failed to create/modify post";
+        console.error(msg,err);
+        return res.status(500).json({message: msg});
+    }
+    
+};
+
+
 export {
     postsGet,
-    signInPost
+    signInPost,
+    postPost
 }

@@ -8,6 +8,7 @@ import './index.css'
 import Root from "./components/Root/Root.jsx"
 import SignIn from "./components/SignIn/SignIn.jsx"
 import { Home } from "./components/Home/Home.jsx"
+import ManagePost from './components/ManagePost/ManagePost.jsx';
 
 
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "signin",
         element: <SignIn />,
+      },
+      {
+        path: "manage",
+        element: <ManagePost />,
       }
     ]
   }

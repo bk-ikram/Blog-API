@@ -5,13 +5,11 @@ export default function Navbar({handleLogOut, isLoggedIn}){
         <nav>
                 <ul>
                     <li><NavElement path="/">Home</NavElement></li>
-                    { isLoggedIn && <li><NavElement path="create">Create Post</NavElement></li>} 
+                    { isLoggedIn && <li><NavElement path="manage">Create Post</NavElement></li>} 
                     { !isLoggedIn &&<li><NavElement path="signin">Sign In</NavElement></li> }
                     { isLoggedIn 
                         && <li>
-                            <form onSubmit={(e) => handleLogOut(e,setUser, setToken)}>
-                                <button type="submit">Sign Out</button>
-                            </form>
+                                <button onClick={(e) => handleLogOut(e)}>Sign Out</button>
                             </li> 
                     }
                 </ul>

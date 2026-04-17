@@ -29,14 +29,44 @@ async function getUserByUsername(username){
 };
 
 async function getUserById(id){
-    const user = prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: { id: id },
     })
     return user;
 };
 
+async function upsertPost(id, title, content, published, userId, publishedAt){
+    const post = await prisma.post.upsert({
+        where: { id: id},
+        update: {
+            title: title,
+            content: content,
+            published: published,
+            publishedAt: publishedAt
+        },
+        create: {
+            title: title,
+            content: content,
+            published: published,
+            userId: userId,
+            publishedAt: publishedAt
+        }
+    })
+    return post;
+}
+
+async function isAuthor(id){
+    const user = await prisma.user.findUnique({
+        where: { id: id }
+    });
+
+    return user.role === "AUTHOR";
+}
+
 export { 
     getPosts,
     getUserByUsername,
-    getUserById
+    getUserById,
+    upsertPost,
+    isAuthor
  };

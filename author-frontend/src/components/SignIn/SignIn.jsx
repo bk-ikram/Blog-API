@@ -1,5 +1,6 @@
 import { postLogin } from '../../api/requests';
 import { useOutletContext } from 'react-router-dom';
+import { useEffect } from "react"; 
 
 
 
@@ -29,8 +30,11 @@ async function handleLogIn(e, setUser, setToken, setError){
 export default function SignIn(){
     const { user, setUser, setToken, error, setError } = useOutletContext();
     const isLoggedIn = Object.keys(user).length > 0;
-    if(isLoggedIn)
-        setError(undefined);
+
+    useEffect(() => {
+        if(isLoggedIn) setError(undefined);
+    }, [isLoggedIn]);
+
     return (
         <>
             {isLoggedIn && 

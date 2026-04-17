@@ -14,11 +14,7 @@ function getPreviousUser() {
     return JSON.parse(storedData);
 }
 
-function handleLogOut(e,setUser,setToken){
-    e.preventDefault(); //prevent page refresh
-    clearLoggedInUser();
-    return;
-}
+
 
 function Root(){
     const [user, setUser] = useState(getPreviousUser);
@@ -32,6 +28,12 @@ function Root(){
         setToken('');
         localStorage.removeItem("odinBlogToken");
         localStorage.removeItem("odinBlogUser");
+    }
+
+    function handleLogOut(e){
+        e.preventDefault(); //prevent page refresh
+        clearLoggedInUser();
+        return;
     }
 
     const apiFetch = createApiFetch({ token, onExpired: clearLoggedInUser });

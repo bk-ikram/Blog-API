@@ -11,14 +11,20 @@ async function postLogin(formJson){
         body: JSON.stringify(formJson),
     });
 
-    const data = await res.json();
+    if (!res.ok) throw new Error(res.message || "Login failed");
 
-    if (!res.ok) throw new Error(data.message || "Login failed");
+    return res.json();
+}
 
-    return data;
+async function upsertPost(apiFetch, formJson){
+    return apiFetch("/api/post", {
+        method: "POST",
+        body: JSON.stringify(formJson)
+    });
 }
 
 export {
     getPosts,
-    postLogin
+    postLogin,
+    upsertPost
 };

@@ -3,10 +3,13 @@ import { Router } from 'express';
 const appRouter = Router();
 import  { postsGet
     ,signInPost
+    ,postPost
  } from "../controllers/appController.js";
 import passport from 'passport';
-//import {isAuth } from '../middleware/authMiddleware';
-import { authenticateLocal } from '../../middleware/authMiddleware.js'
+import { authenticateLocal
+        ,authenticateJWT
+        ,isUserAuthor
+ } from '../../middleware/authMiddleware.js'
 
 //universal
 appRouter.use((req, res, next) => {
@@ -21,5 +24,11 @@ appRouter.get("/api/posts", postsGet);
 appRouter.post("/api/signin",
                 authenticateLocal,
                 signInPost);
+
+//upsert post
+appRouter.post("/api/post",
+                authenticateJWT,
+                isUserAuthor,
+                postPost);
 
 export default appRouter;

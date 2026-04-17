@@ -34,6 +34,7 @@ export function Home(user){
         author = {p.user.userName}
         time = {p.publishedAt || p.createdAt}
         comments = {p.comments}
+        published = {p.published}
         />
        )}
     </main>

@@ -35,21 +35,21 @@ async function getUserById(id){
     return user;
 };
 
-async function upsertPost(id, title, content, published, userId, publishedAt){
+async function upsertPost(id, title, content, published, userId){
     const post = await prisma.post.upsert({
         where: { id: id},
         update: {
             title: title,
             content: content,
             published: published,
-            publishedAt: publishedAt
+            publishedAt: published ? new Date() : null,
         },
         create: {
             title: title,
             content: content,
             published: published,
             userId: userId,
-            publishedAt: publishedAt
+            publishedAt: published ? new Date() : null,
         }
     })
     return post;

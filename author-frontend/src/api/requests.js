@@ -17,6 +17,7 @@ async function postLogin(formJson){
 }
 
 async function upsertPost(apiFetch, formJson){
+    console.log(formJson);
     return apiFetch("/api/post", {
         method: "POST",
         body: JSON.stringify(formJson)

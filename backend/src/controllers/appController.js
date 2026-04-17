@@ -32,11 +32,11 @@ function signInPost(req, res){
 
 async function postPost( req, res){
     try{
-        console.log("postpost controller reached");
+        console.log("postpost controller reached",req.body);
         const {id,
             title,
             content,
-            published,
+            publish,
         } = req.body;
 
         const userId = req.user.id;
@@ -45,9 +45,8 @@ async function postPost( req, res){
             Number(id)
             ,title
             ,content
-            ,published === "yes"
+            ,publish === "yes"
             ,Number(userId)
-            ,published === "yes" ? new Date().getTimezoneOffset() : null
         );
         console.log("After upsert query ",post);
         return res.json('done');

@@ -7,7 +7,7 @@ import {
 import './index.css'
 import Root from "./components/Root/Root.jsx"
 import SignIn from "./components/SignIn/SignIn.jsx"
-import { Home, loader as postLoader} from "./components/Home/Home.jsx"
+import { Home } from "./components/Home/Home.jsx"
 
 
 const router = createBrowserRouter([
@@ -19,7 +19,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: postLoader,
       },
       {
         path: "signin",

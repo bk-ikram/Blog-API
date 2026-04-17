@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 
-export function Comment (content, author,time){
+export default function Comment ({content, author,time}){
     const timeAgo = DateTime.fromISO(time).toRelative();
     return (
         <div>

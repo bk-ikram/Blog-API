@@ -1,19 +1,21 @@
 import { DateTime } from 'luxon';
-import Component from '../Comment/Comment.jsx';
+import Comment from '../Comment/Comment.jsx';
+import styles from "./Post.module.css"
 
-export function Post (title, content, author,time, comments){
+export default function Post ({title, content, author,time, comments}){
     const timeAgo = DateTime.fromISO(time).toRelative();
     return (
-        <div>
+        <div className={styles.postDiv}>
             <h1>{title}</h1>
             <h4>By: {author} @{timeAgo}</h4>
             <p>{content}</p>
             {
-                comments.map( c => 
+                comments && comments.map( c => 
                 <Comment 
                 key= { c.id } 
                 data= { c }
                 /> )
+                
             }
         </div>
     )

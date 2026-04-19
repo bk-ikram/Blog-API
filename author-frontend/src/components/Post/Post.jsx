@@ -19,6 +19,7 @@ export default function Post ({title, content, author,time, comments, published}
                 /> )
                 
             }
+            <button></button>
         </div>
     )
 }

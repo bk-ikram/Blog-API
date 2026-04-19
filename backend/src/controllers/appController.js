@@ -32,7 +32,6 @@ function signInPost(req, res){
 
 async function postPost( req, res){
     try{
-        console.log("postpost controller reached",req.body);
         const {id,
             title,
             content,
@@ -48,7 +47,6 @@ async function postPost( req, res){
             ,publish === "yes"
             ,Number(userId)
         );
-        console.log("After upsert query ",post);
         return res.json('done');
     }
     catch(err){

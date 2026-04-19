@@ -5,7 +5,6 @@ async function handleSubmit(e,apiFetch){
     e.preventDefault(); //prevent page refresh
     const form = e.target;
     const formData = new FormData(form);
-    console.log(formData);
     const formJson = Object.fromEntries(formData.entries());
     return await upsertPost(apiFetch,formJson);
 

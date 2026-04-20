@@ -23,8 +23,16 @@ async function upsertPost(apiFetch, formJson){
     });
 }
 
+async function deletePost(apiFetch, id){
+    return apiFetch(`/api/post/${id}`, {
+        method: "DELETE"
+    });
+}
+
+
 export {
     getPosts,
     postLogin,
-    upsertPost
+    upsertPost,
+    deletePost
 };

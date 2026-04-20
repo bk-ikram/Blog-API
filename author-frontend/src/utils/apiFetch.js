@@ -30,8 +30,14 @@ export default function createApiFetch({ token, onExpired }) {
         onExpired(); // catch server-side expiry too, as a safety net
         return null;
       }
-      if(!res.ok)
-        throw new Error(`HTTP error! status: ${res.status}`);
+      if(!res.ok){
+        const data = await res.json();
+        const error = new Error(data?.message || "Request failed");
+        error.status = res.status;
+        error.data = data;
+        throw error;
+      }
+        
 
       return res.json();
     }

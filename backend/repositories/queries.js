@@ -63,10 +63,25 @@ async function isAuthor(id){
     return user.role === "AUTHOR";
 }
 
+async function deletePostRepo(id){
+    try{
+        const post = await prisma.post.delete({
+        where: { id: id }
+        });
+
+        return post;
+    }
+    catch(err){
+        throw new Error(err);
+    }
+}
+
+
 export { 
     getPosts,
     getUserByUsername,
     getUserById,
     upsertPost,
-    isAuthor
+    isAuthor,
+    deletePostRepo
  };

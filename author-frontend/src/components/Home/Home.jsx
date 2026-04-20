@@ -15,6 +15,10 @@ export function Home(user){
       .finally(() => setLoading(false));
   }, []);
 
+  function removePost(id){
+    setPosts(prev => prev.filter((p) => p.id !== id));
+  }
+
   if(loading)
     return <p>Loading.......</p>;
 
@@ -29,12 +33,14 @@ export function Home(user){
       {posts && posts.map( p =>
         <Post 
         key = {p.id}
+        id= {p.id}
         title = {p.title}
         content = {p.content}
         author = {p.user.userName}
         time = {p.publishedAt || p.createdAt}
         comments = {p.comments}
         published = {p.published}
+        removePost = {removePost}
         />
        )}
     </main>

@@ -4,6 +4,7 @@ const appRouter = Router();
 import  { postsGet
     ,signInPost
     ,postPost
+    ,deletePost
  } from "../controllers/appController.js";
 import passport from 'passport';
 import { authenticateLocal
@@ -30,5 +31,12 @@ appRouter.post("/api/post",
                 authenticateJWT,
                 isUserAuthor,
                 postPost);
+
+//delete post
+appRouter.delete("/api/post/:id",
+                authenticateJWT,
+                isUserAuthor,
+                deletePost
+);
 
 export default appRouter;

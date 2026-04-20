@@ -1,5 +1,6 @@
 import { getPosts
     ,upsertPost
+    ,deletePostRepo
  } from "../../repositories/queries.js";
 import jwt from "jsonwebtoken";
 import passport from 'passport';
@@ -58,8 +59,28 @@ async function postPost( req, res){
 };
 
 
+async function deletePost( req, res){
+    try{
+        const id = Number(req.params.id);
+        const userId = req.user.id;
+
+        const post = await deletePostRepo( id );
+        if(!post)
+            return res.status(404).json({ message: "Post not found" });
+        return res.status(200).json({message: 'done'});
+    }
+    catch(err){
+        const msg = JSON.stringify(err) || "Failed to delete post";
+        console.error(msg,err);
+        return res.status(500).json({message: msg});
+    }
+    
+};
+
+
 export {
     postsGet,
     signInPost,
-    postPost
+    postPost,
+    deletePost
 }

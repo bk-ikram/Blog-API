@@ -5,7 +5,7 @@ import { deletePost } from "../../api/requests.js"
 import { useState } from 'react';
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-export default function Post ({id, title, content, author,time, comments, published, removePost}){
+export default function Post ({id, title, content, author,time, comments, published, removePost, removeComment}){
     const [error, setError] = useState('');
     const { apiFetch } = useOutletContext();
     const timeAgo = DateTime.fromISO(time).toRelative();
@@ -42,11 +42,23 @@ export default function Post ({id, title, content, author,time, comments, publis
             {!published && <h3 style={{color:"yellow"}}>Not Published!</h3>}
             <h4>By: {author} @{timeAgo}</h4>
             <p>{content}</p>
+            { comments.length > 0
+            && 
+            <>
+                <hr/>
+                <h3>Comments</h3>
+            </>
+            }
             {
                 comments && comments.map( c => 
                 <Comment 
                 key= { c.id } 
-                data= { c }
+                id = { c.id }
+                content= { c.content }
+                guestName = { c.guestName }
+                createdAt = { c.createdAt }
+                postId = {id}
+                removeComment = {removeComment}
                 /> )
                 
             }

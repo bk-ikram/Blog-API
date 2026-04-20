@@ -47,3 +47,22 @@ export async function isUserAuthor(req, res, next) {
         message: "You must be an author to create or modify posts."
       });
 }
+
+
+export function optionalAuth(req, res, next) {
+  passport.authenticate("jwt", { session: false }, (err, user, info) => {
+
+    if (err) return next(err);
+
+    if (user) {
+      req.user = user;
+    }
+    else if(info){
+      req.authError = info.message; //optional visibility
+    }
+
+
+    next();
+
+  })(req, res, next);
+}

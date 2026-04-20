@@ -1,16 +1,36 @@
 import { DateTime } from 'luxon';
+import { deleteComment } from '../../api/requests';
+import { useOutletContext } from "react-router-dom";
+import { useState } from "react";
 
 
-export default function Comment ({content, author,time}){
-    const timeAgo = DateTime.fromISO(time).toRelative();
+export default function Comment ({postId, id, content, guestName, createdAt, removeComment}){
+    const timeAgo = DateTime.fromISO(createdAt).toRelative();
+    const { apiFetch } = useOutletContext();
+    const [error, setError] = useState('');
+
+    async function handleDelete(){
+        try{
+            //send post request to delete post
+            const result = await deleteComment(apiFetch,id);
+            //remove post from UI
+            removeComment(postId, id);
+        }
+        catch(err){
+            const message =
+                err?.data?.message ||
+                err?.message ||
+                "Something went wrong";
+
+            setError(message);
+        }
+    }
+
     return (
         <div>
-            <h4>{title}</h4>
-            <h5>By: {author} @{timeAgo}</h5>
+            <h5>By: {guestName} @{timeAgo}</h5>
             <p>{content}</p>
-            <form method="post" action="">
-                <button type="submit">Delete</button>
-            </form>
+            <button onClick={() => handleDelete()}>Delete</button>
         </div>
     )
 }

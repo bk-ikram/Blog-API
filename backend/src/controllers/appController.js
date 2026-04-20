@@ -1,12 +1,15 @@
 import { getPosts
     ,upsertPost
     ,deletePostRepo
+    ,createComment
+    ,deleteCommentRepo
  } from "../../repositories/queries.js";
 import jwt from "jsonwebtoken";
 import passport from 'passport';
 
 async function postsGet( req, res){
-    const posts = await getPosts();
+    const isPublic = req.user ? false : true;
+    const posts = await getPosts(isPublic);
     res.json(posts);
 };
 
@@ -77,10 +80,52 @@ async function deletePost( req, res){
     
 };
 
+async function postComment( req, res){
+    try{
+        const {id,
+            guestname,
+            content
+        } = req.body;
+
+        const comment = await createComment(
+            Number(id)
+            ,guestname
+            ,content
+        );
+        return res.json(comment);
+    }
+    catch(err){
+        const msg = "Failed to create comment";
+        console.error(msg,err);
+        return res.status(500).json({message: msg});
+    }
+    
+};
+
+
+async function deleteComment( req, res){
+    try{
+        const id = Number(req.params.id);
+        const userId = req.user.id;
+
+        const comment = await deleteCommentRepo( id );
+        if(!comment)
+            return res.status(404).json({ message: "Comment not found" });
+        return res.status(200).json({message: 'done'});
+    }
+    catch(err){
+        const msg = JSON.stringify(err) || "Failed to delete Comment";
+        console.error(msg,err);
+        return res.status(500).json({message: msg});
+    }
+    
+};
 
 export {
     postsGet,
     signInPost,
     postPost,
-    deletePost
+    deletePost,
+    postComment,
+    deleteComment
 }

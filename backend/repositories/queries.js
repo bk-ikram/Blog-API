@@ -1,22 +1,17 @@
 import { prisma } from "../lib/prisma.js" ;
 
-async function getPosts(){
+async function getPosts(isPublic){
     return prisma.post.findMany({
+        where: {
+            ...( isPublic ? { published : true } : {} )
+        },
         include: {
             user: {
                 select: {
                     userName: true
                 }
             },
-            comments: {
-                include:{
-                    user: {
-                        select: {
-                            userName: true
-                        }
-                    }
-                }
-            }
+            comments: true,
         }
     });
 }
@@ -76,6 +71,30 @@ async function deletePostRepo(id){
     }
 }
 
+async function createComment(id, guestname, content){
+    const comment = await prisma.comment.create({
+        data: {
+            postId: id,
+            content: content,
+            guestName: guestname,
+        },
+        
+    });
+    return comment;
+}
+
+async function deleteCommentRepo(id){
+    try{
+        const comment = await prisma.comment.delete({
+        where: { id: id }
+        });
+
+        return comment;
+    }
+    catch(err){
+        throw new Error(err);
+    }
+}
 
 export { 
     getPosts,
@@ -83,5 +102,7 @@ export {
     getUserById,
     upsertPost,
     isAuthor,
-    deletePostRepo
+    deletePostRepo,
+    createComment,
+    deleteCommentRepo
  };

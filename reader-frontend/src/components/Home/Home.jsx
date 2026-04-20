@@ -9,25 +9,22 @@ export function Home(user){
   const [loading, setLoading] = useState(true);
   const { apiFetch } = useOutletContext();
 
+  function addComment(postid, comment){
+    setPosts( (prev) => prev.map( p => {
+      if(p.id !== postid)
+        return p;
+      else{
+        const newComments = [...(p.comments || []), comment];
+        return {...p, comments: newComments}
+      }
+    }))
+  }
+
   useEffect(() => {
     getPosts(apiFetch)
       .then(setPosts)
       .finally(() => setLoading(false));
   }, []);
-
-  function removePost(id){
-    setPosts(prev => prev.filter((p) => p.id !== id));
-  }
-
-    function removeComment(postId,id){
-    setPosts(prev => prev.map((p) => {
-      if(p.id !== postId)
-        return p;
-      const comments = (p.comments || []).filter( c => c.id !== id);
-      return {...p, comments};
-    })
-    );
-    }
 
   if(loading)
     return <p>Loading.......</p>;
@@ -50,8 +47,7 @@ export function Home(user){
         time = {p.publishedAt || p.createdAt}
         comments = {p.comments}
         published = {p.published}
-        removePost = {removePost}
-        removeComment = {removeComment}
+        addComment = { addComment }
         />
        )}
     </main>

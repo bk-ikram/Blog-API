@@ -5,11 +5,14 @@ import  { postsGet
     ,signInPost
     ,postPost
     ,deletePost
+    ,postComment
+    ,deleteComment
  } from "../controllers/appController.js";
 import passport from 'passport';
 import { authenticateLocal
         ,authenticateJWT
-        ,isUserAuthor
+        ,isUserAuthor,
+        optionalAuth
  } from '../../middleware/authMiddleware.js'
 
 //universal
@@ -19,7 +22,9 @@ appRouter.use((req, res, next) => {
 })
 
 //posts
-appRouter.get("/api/posts", postsGet);
+appRouter.get("/api/posts",
+                optionalAuth,
+                postsGet);
 
 //signin
 appRouter.post("/api/signin",
@@ -37,6 +42,18 @@ appRouter.delete("/api/post/:id",
                 authenticateJWT,
                 isUserAuthor,
                 deletePost
+);
+
+//create comment
+appRouter.post("/api/post/:id/comment",
+                postComment
+);
+
+//delete comment
+appRouter.delete("/api/comment/:id",
+                authenticateJWT,
+                isUserAuthor,
+                deleteComment
 );
 
 export default appRouter;

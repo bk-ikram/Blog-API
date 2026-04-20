@@ -29,10 +29,17 @@ async function deletePost(apiFetch, id){
     });
 }
 
+async function deleteComment(apiFetch, id){
+    return apiFetch(`/api/comment/${id}`, {
+        method: "DELETE"
+    });
+}
+
 
 export {
     getPosts,
     postLogin,
     upsertPost,
-    deletePost
+    deletePost,
+    deleteComment
 };

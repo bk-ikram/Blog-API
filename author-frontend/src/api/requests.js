@@ -11,7 +11,9 @@ async function postLogin(formJson){
         body: JSON.stringify(formJson),
     });
 
-    if (!res.ok) throw new Error(res.message || "Login failed");
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) throw new Error(data.message || "Login failed");
 
     return res.json();
 }

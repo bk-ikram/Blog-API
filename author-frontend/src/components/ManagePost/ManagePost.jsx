@@ -15,7 +15,7 @@ export default function ManagePost(){
     const isPublished = state?.post?.published;
 
 
-    async function handleSubmit(e,apiFetch){
+    async function handleSubmit(e){
         e.preventDefault(); //prevent page refresh
         const form = e.target;
         const formData = new FormData(form);

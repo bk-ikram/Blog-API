@@ -39,6 +39,6 @@ main()
     .catch(async (e) => {
         console.error(e);
         await prisma.$disconnect();
-        process.exit(1);
         console.log("Could not create seed data in DB.");
+        process.exit(1);
     });

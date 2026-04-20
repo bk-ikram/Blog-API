@@ -20,7 +20,6 @@ async function handleLogIn(e, setUser, setToken, setError){
         }
     }
     catch(err){
-        console.log("The error is ",err);
         setError(err.message);
     }
     

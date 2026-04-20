@@ -17,7 +17,7 @@ async function getPosts(isPublic){
 }
 
 async function getUserByUsername(username){
-    const user = prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: { userName: username },
     })
     return user;

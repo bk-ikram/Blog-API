@@ -17,7 +17,6 @@ export default function Post ({id, title, content, author,time, comments, publis
         <div className={styles.postDiv}>
             {error && <h3>{error}</h3>}
             <h1>{title}</h1>
-            <h3 >{published}</h3>
             {!published && <h3 style={{color:"yellow"}}>Not Published!</h3>}
             <h4>By: {author} @{timeAgo}</h4>
             <p>{content}</p>

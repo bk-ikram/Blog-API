@@ -26,7 +26,11 @@ const router = createBrowserRouter([
         element: <SignIn />,
       },
       {
-        path: "manage",
+        path: "post/:id/edit",
+        element: <ManagePost />,
+      },
+      {
+        path: "post/create",
         element: <ManagePost />,
       }
     ]

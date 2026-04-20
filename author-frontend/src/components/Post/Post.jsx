@@ -14,7 +14,6 @@ export default function Post ({id, title, content, author,time, comments, publis
 
     async function handleDelete(){
         try{
-            console.log("entered handle delete");
             //send post request to delete post
             const result = await deletePost(apiFetch,id);
             //remove post from UI
@@ -29,6 +28,10 @@ export default function Post ({id, title, content, author,time, comments, publis
             setError(message);
         }
 
+    }
+
+    async function handleModify(){
+        return navigate(`/post/${id}/edit`, {state: {post: {id, title, content, published}}});
     }
 
     return (
@@ -47,6 +50,7 @@ export default function Post ({id, title, content, author,time, comments, publis
                 /> )
                 
             }
+            <button onClick={() => handleModify()}>Modify</button>
             <button onClick={() => handleDelete()}>Delete</button>
         </div>
     )

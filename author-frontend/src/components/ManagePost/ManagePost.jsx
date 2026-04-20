@@ -1,13 +1,19 @@
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams, useLocation } from "react-router-dom";
 import { upsertPost } from "../../api/requests";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 
-export default function ManagePost(postDetails){
+export default function ManagePost(){
     const [error, setError] = useState('');
     const { apiFetch } = useOutletContext();
     const navigate = useNavigate();
+    const { id } = useParams();
+    const { state } = useLocation();
+
+    const postDetails = state?.post;
+    const isPublished = state?.post?.published;
+
 
     async function handleSubmit(e,apiFetch){
         e.preventDefault(); //prevent page refresh
@@ -22,6 +28,7 @@ export default function ManagePost(postDetails){
 
         navigate('/');
     }
+
     return (
         <>
         {postDetails
@@ -30,10 +37,10 @@ export default function ManagePost(postDetails){
         }
         {error && <h3>{error}</h3>}
         <form onSubmit={(e)=>handleSubmit(e,apiFetch)} >
-            <input hidden id="id" name="id" value={postDetails?.id} />
-            <p><label htmlFor="title">Title</label><input id="title" name="title" type="text" value={postDetails?.title} /></p>
-            <p><label htmlFor="content">Content</label><textarea id="content" name="content" rows="5" cols="50">{postDetails?.content}</textarea></p>
-            <p><label htmlFor="published">Publish</label><input type="checkbox" id="publish" name="publish" value="yes"/></p>
+            <input hidden id="id" name="id" defaultValue={postDetails?.id} />
+            <p><label htmlFor="title">Title</label><input id="title" name="title" type="text" defaultValue={postDetails?.title} /></p>
+            <p><label htmlFor="content">Content</label><textarea id="content" name="content" rows="5" cols="50" defaultValue = {postDetails?.content}/></p>
+            <p><label htmlFor="publish">Publish</label><input type="checkbox" id="publish" name="publish" defaultChecked={isPublished} /></p>
             <button type="submit">Submit</button>
         </form>
         </>

@@ -45,7 +45,7 @@ async function postPost( req, res){
             Number(id)
             ,title
             ,content
-            ,publish === "yes"
+            ,publish !== undefined
             ,Number(userId)
         );
         return res.json('done');

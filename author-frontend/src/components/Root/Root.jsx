@@ -37,7 +37,6 @@ function Root(){
     }
 
     const apiFetch = createApiFetch({ token, onExpired: clearLoggedInUser });
-    const posts = [];
         return(
         <>
             <h1>Hi {user.username ?? "Stranger"}!</h1>
@@ -46,7 +45,7 @@ function Root(){
             isLoggedIn = {isLoggedIn}
             />
             <Outlet 
-                context = {{ user, setUser, setToken, posts, error, setError, apiFetch }} 
+                context = {{ user, setUser, setToken, error, setError, apiFetch }} 
             />
            
         </>
